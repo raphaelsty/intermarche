@@ -1,6 +1,10 @@
+## Solution to Datafactory challenge by Intermarché.
+
 4th place solution to [datafactory challenge by Intermarché](https://challenge.datafactory-intermarche.fr/fr/challenge/1/details). The objective of the challenge is to predict the sales made by intermarche in the first quarter of 2019. We have the data of the past year (2018) to train our model to fit the sales.
 
-The data are structured such as:
+#### Data 💿
+
+We have the record of sales for a set of pairs (store, item) and for each day of 2018 (if there was at least one sale). The data are structured as:
 
 |    date    | store | item | quantity |
 |:----------:|:-----:|:----:|:--------:|
@@ -15,10 +19,12 @@ We have additional tables available such as:
 - Store characteristics.
 - Product prices by store and by quarter.
 
+#### Solution 🤖
+
 The main difficulty of the challenge is to find the days for which a store has recorded no sales for a given product.
 Indeed, Intermarché does not provide records for which the target variable (quantity) is equal to 0. I found that adding up to 5 zeros after a sale for a given pair (store / item) maximized the performance of my model and limited the overfitting of my aggregates.
 
-The list of my features:
+**Features:**
 
 - Aggregates by item / store (mean + std)
 - Aggregates on prices. (mean)
@@ -32,6 +38,8 @@ I used LightGBM and performed a 3-fold cross-validation with bagging to make my 
 Finally I set all predictions of February and March as the predictions of the second and third week of January.
 
 Also I set to 0 the set of predictions associated to triplets (store / item / day of the week) for which we have not enough records in the training set. 
+
+#### Run ♻️
 
 To reproduce my results, you must download the data in the folder `data/raw`.
 
@@ -47,3 +55,7 @@ python scripts/make_train_test.py
 python scripts/learn.py
 python scripts/polish_sub.py
 ```
+
+#### License
+
+This project is free and open-source software licensed under the MIT license.
