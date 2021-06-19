@@ -13,7 +13,6 @@ X_train = X_train.fillna(-1)
 X_test = X_test.fillna(-1)
 
 cv = KFold(3, shuffle=True, random_state=42)
-oof = pd.Series(0.0, index=X_train.index)
 sub = pd.Series(0.0, index=X_test.index)
 
 model = lgbm.LGBMRegressor(
