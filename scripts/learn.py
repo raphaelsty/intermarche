@@ -9,8 +9,11 @@ X_test = pd.read_pickle("data/test.pkl")
 
 y_train = np.log1p(X_train.pop("quantity"))
 
-X_train = X_train.fillna(-1)
-X_test = X_test.fillna(-1)
+X_train = X_train.astype(np.float32)
+X_test = X_test.astype(np.float32)
+
+X_train = X_train.fillna(-1.0)
+X_test = X_test.fillna(-1.0)
 
 cv = KFold(3, shuffle=True, random_state=42)
 sub = pd.Series(0.0, index=X_test.index)
