@@ -23,6 +23,13 @@ model = lgbm.LGBMRegressor(
     num_leaves=2 ** 5 - 1,
     n_estimators=500,
     random_state=42,
+    learning_rate=0.05,
+    min_child_samples=80,
+    subsample=0.8,
+    colsample_bytree=1,
+    reg_alpha=0,
+    reg_lambda=0,
+    random_state=42,
 )
 
 for fit_idx, val_idx in tqdm(cv.split(X_train, y_train), total=cv.n_splits):
